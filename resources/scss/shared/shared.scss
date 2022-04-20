@@ -1,0 +1,63 @@
+@font-face {
+  font-family: Poppins_bold;
+  src: url('/assets/fonts/Poppins/Poppins-Bold.ttf');
+}
+
+@font-face {
+  font-family: Poppins_regular;
+  src: url('/assets/fonts/Poppins/Poppins-Bold.ttf');
+}
+
+@font-face {
+  font-family: open_sans_regular;
+  src: url('/assets/fonts/Open_Sans/static/OpenSans/OpenSans-Regular.ttf');
+}
+
+
+@font-face {
+  font-family: noto_sans_regular;
+  src: url('/assets/fonts/Noto_Sans/NotoSans-Regular.ttf');
+}
+
+@font-face {
+  font-family: noto_sans_semi_bold;
+  src: url('/assets/fonts/Noto_Sans/NotoSans-SemiBold.ttf');
+}
+
+
+
+@font-face {
+  font-family: dm_sans_regular;
+  src: url('/assets/fonts/DM_Sans/DMSans-Regular.ttf');
+}
+
+@font-face {
+  font-family: dm_sans_medium;
+  src: url('/assets/fonts/DM_Sans/DMSans-Medium.ttf');
+}
+
+@import "responsive/shared.mob";
+@import "responsive/shared.tablet";
+@import "responsive/shared.lap";
+
+/* custom scroll bar*/
+
+.custom-scroll{
+  &::-webkit-scrollbar {
+    width: 3px;
+    border-radius: 6px;
+  }
+
+  &::-webkit-scrollbar-track {
+    background: #f1f1f1;
+  }
+
+  &::-webkit-scrollbar-thumb {
+    background: #C2D7FF;
+    border-radius: 6px;
+  }
+
+  &::-webkit-scrollbar-thumb:hover {
+    background: #555;
+  }
+}

@@ -1,0 +1,26 @@
+/*
+ * Homepage styles
+ */
+body {
+  background: whitesmoke;
+  padding: 30px 15px;
+}
+body .header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+body .header .auth .auth-btn {
+  border: 1.5px solid #001BE2;
+  border-radius: 50px;
+  font-family: noto_sans_semi_bold, sans-serif;
+  font-style: normal;
+  font-weight: 600;
+  font-size: 14px;
+  line-height: 19px;
+  color: #001CE2;
+  padding: 6px 18px;
+}
+
+/* Small devices (portrait tablets and large phones, 600px and up) */
+/* Large devices (laptops/desktops, 1281px and up) */
