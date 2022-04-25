@@ -112,6 +112,12 @@
                     </Waypoint>
 
                 </div>
+                <div class="single-freelancer-skeleton" v-if="isPending">
+                    <div class="avatar-skeleton"></div>
+                    <div class="info-skeleton-one"></div>
+                    <div class="info-skeleton-two"></div>
+                    <div class="video-skeleton"></div>
+                </div>
             </div>
         </div>
 
@@ -180,7 +186,6 @@
                 this.isPending = true;
                 axios.get(`${process.env.MIX_CIV_URL}/api/search/workforce-profiles?page=${this.page}&count=${this.count}`)
                     .then((res) => {
-                        console.log(res.data.data);
                         this.users.push(...res.data.data);
                         this.lastPage = res.data.last_page;
                         this.page++;
@@ -188,7 +193,6 @@
                     })
                     .catch((err) => {
                         this.isPending = false;
-                        console.log(err, 'Error while fetching users...');
                     });
             },
             imageLoadError(user) {
@@ -199,7 +203,6 @@
             },
             onChange(waypointState) {
                 if(waypointState.going === 'IN'){
-                    console.log('IN');
                     this.playVisibleVideo(waypointState.el.querySelector('.video-wrapper video'));
                 }
             },
@@ -215,7 +218,6 @@
                 const {scrollTop, scrollHeight, clientHeight} = document.documentElement;
 
                 if (scrollTop + clientHeight >= scrollHeight - 5 && this.page <= this.lastPage){
-                    console.log('getting');
                     this.getHomeProfiles();
                 }
             }, {

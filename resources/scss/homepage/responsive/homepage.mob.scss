@@ -217,6 +217,77 @@ body {
           }
         }
       }
+
+      @keyframes gradient-animation {
+        0% {
+          opacity: 40%;
+          filter: blur(3px);
+        }
+        50% {
+          opacity: 90%;
+          filter: blur(1px);
+        }
+        100%{
+          opacity: 40%;
+          filter: blur(3px);
+        }
+      }
+
+      .single-freelancer-skeleton {
+        min-height: 300px;
+        position: relative;
+        background: #E6E8FC;
+        border-radius: 10px;
+        opacity: 0.6;
+        transition: box-shadow 0.2s ease-in;
+        margin-bottom: 50px;
+
+        animation-name: gradient-animation;
+        animation-duration: 3s;
+        animation-iteration-count: infinite;
+
+        &:hover{
+          box-shadow: -10px 10px 20px rgba(0, 0, 0, 0.4);
+        }
+        .avatar-skeleton{
+          width: 64px;
+          height: 64px;
+          border-radius: 50%;
+          position: absolute;
+          top: 12px;
+          left: 24px;
+          background: white;
+        }
+
+        .info-skeleton-one{
+          position: absolute;
+          top: 24px;
+          left: 104px;
+          width: 120px;
+          height: 20px;
+          background: white;
+        }
+
+        .info-skeleton-two{
+          position: absolute;
+          top: 54px;
+          left: 104px;
+          width: 100px;
+          height: 20px;
+          background: white;
+        }
+
+        .video-skeleton{
+          position: absolute;
+          top: 120px;
+          left: 14px;
+          background: white;
+          border-radius: 12px;
+          width: calc(100% - 28px);
+          height: 140px;
+        }
+
+      }
     }
   }
 
