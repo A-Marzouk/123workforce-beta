@@ -28,7 +28,19 @@
                 </div>
 
                 <div class="skills-suggestions">
-                    <div class="skills">
+                    <div class="skills hide-scrollbar">
+                        <div class="single-skill">
+                            Illustration
+                        </div>
+                        <div class="single-skill">
+                            Graphic Design
+                        </div>
+                        <div class="single-skill">
+                            Motion
+                        </div>
+                        <div class="single-skill">
+                            Product
+                        </div>
                         <div class="single-skill">
                             Illustration
                         </div>
@@ -52,103 +64,59 @@
 
         <div class="freelancers-list-wrapper">
             <div class="freelancers-list">
-                <div class="single-freelancer">
+                <div class="single-freelancer" v-for="user in users" :key="user.id">
                     <div class="personal-details">
 
                         <div class="profile-picture">
-                            <img src="/assets/icons/homepage/profile-pic-holder.png" alt="profile pic" class="profile">
-                            <div class="message-icon">
-                                <img src="/assets/icons/homepage/message-icon.png" alt="message" >
-                            </div>
+                            <img :src="user.avatar" @error="imageLoadError(user)" alt="profile pic" class="profile">
+                            <a href="mailto:accounts@123workforce.com" class="message-icon">
+                                <img src="/assets/icons/homepage/message-icon.png" alt="message">
+                            </a>
                         </div>
 
                         <div class="professional-details">
                             <div class="name-wrapper">
                                 <div class="name">
-                                    Jhone -
+                                    {{ user.name }}
                                 </div>
                                 <div class="job-title">
-                                     UI designer
+                                    {{ user.job_title }}
                                 </div>
                             </div>
 
-                            <div class="skills">
-                                <div class="single-skill">
-                                    UI
-                                </div>
-                                <div class="single-skill">
-                                    Web
-                                </div>
-                                <div class="single-skill">
-                                    Motion
+                            <div class="skills hide-scrollbar">
+                                <div class="single-skill" v-for="skill in user.skills" :key="skill.id">
+                                    {{ skill.title }}
                                 </div>
                             </div>
                         </div>
 
                         <div class="hire-button-wrapper">
                             <div class="hire-button">
-                                <a href="#">
+                                <a :href="user.url" target="_blank">
                                     Hire me
                                 </a>
                             </div>
                         </div>
-
                     </div>
-                    <div class="video-wrapper">
-                        <img src="/assets/icons/homepage/video-coming-soon.png" alt="coming soon" class="soon">
-                    </div>
-                </div>
-                <div class="single-freelancer">
-                    <div class="personal-details">
 
-                        <div class="profile-picture">
-                            <img src="/assets/icons/homepage/profile-pic-holder.png" alt="profile pic" class="profile">
-                            <div class="message-icon">
-                                <img src="/assets/icons/homepage/message-icon.png" alt="message" >
-                            </div>
+                    <Waypoint @change="onChange">
+                        <div class="video-wrapper">
+                                <video v-if="user.about_video !== null" @error="videoLoadError(user)"
+                                       :id="`userVideo_${user.id}`" controls>
+                                    <source :src="user.about_video" type="video/mp4">
+                                    Your browser does not support the video tag.
+                                </video>
+                            <img v-else src="/assets/icons/homepage/video-coming-soon.png" alt="coming soon" class="soon">
                         </div>
+                    </Waypoint>
 
-                        <div class="professional-details">
-                            <div class="name-wrapper">
-                                <div class="name">
-                                    Jhone -
-                                </div>
-                                <div class="job-title">
-                                    UI designer
-                                </div>
-                            </div>
-
-                            <div class="skills">
-                                <div class="single-skill">
-                                    UI
-                                </div>
-                                <div class="single-skill">
-                                    Web
-                                </div>
-                                <div class="single-skill">
-                                    Motion
-                                </div>
-                            </div>
-                        </div>
-
-                        <div class="hire-button-wrapper">
-                            <div class="hire-button">
-                                <a href="#">
-                                    Hire me
-                                </a>
-                            </div>
-                        </div>
-
-                    </div>
-                    <div class="video-wrapper">
-                        <img src="/assets/icons/homepage/video-coming-soon.png" alt="coming soon" class="soon">
-                    </div>
                 </div>
             </div>
         </div>
 
 
-        <div class="footer">
+        <div class="footer" id="footer">
             <a href="/" class="footer-logo"></a>
 
             <div class="social-follow">
@@ -182,35 +150,47 @@
 
 
 <script>
-    import { Head, Link } from '@inertiajs/inertia-vue3';
+    import {Head, Link} from '@inertiajs/inertia-vue3';
+    import {Waypoint} from 'vue-waypoint'
 
     export default {
-        components:{
-            Head, Link
+        components: {
+            Head, Link, Waypoint
         },
-        props:{
+        props: {
             canLogin: Boolean,
             canRegister: Boolean,
         },
-        data(){
-          return{
-              users: [],
-              page: 1,
-              count: 5
-          }
-        },
-        methods:{
-            getHomeProfiles(){
-                axios.get( `${process.env.MIX_CIV_URL}/api/search/workforce-profiles?page=${this.page}&count=${this.count}`)
-                    .then( (res) => {
-                        this.users = res.data.data;
-                    })
-                    .catch( (err) => {
-                        console.log(err, 'Error while fetching users...');
-                    });
+        data() {
+            return {
+                users: [],
+                page: 1,
+                count: 5,
+                currentVisibleVideo: null
             }
         },
-        mounted(){
+        methods: {
+            getHomeProfiles() {
+                axios.get(`${process.env.MIX_CIV_URL}/api/search/workforce-profiles?page=${this.page}&count=${this.count}`)
+                    .then((res) => {
+                        this.users = res.data.data;
+                    })
+                    .catch((err) => {
+                        console.log(err, 'Error while fetching users...');
+                    });
+            },
+            imageLoadError(user) {
+                user.avatar = '/assets/icons/homepage/profile-pic-holder.png';
+            },
+            videoLoadError(user) {
+                console.log(`User ${user.name} has a broken about video`);
+            },
+            onChange(waypointState) {
+                console.log(waypointState.going);
+                console.log(waypointState.el)
+            },
+        },
+        mounted() {
             this.getHomeProfiles();
         }
     }

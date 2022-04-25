@@ -4,7 +4,12 @@
 
 
 
-
+.hide-scrollbar{
+  &::-webkit-scrollbar {
+    width: 0;
+    background: transparent;
+  }
+}
 
 @import "responsive/homepage.mob";
 @import "responsive/homepage.tablet";

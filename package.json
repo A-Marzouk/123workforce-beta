@@ -31,6 +31,7 @@
         "vue-loader": "^17.0.0"
     },
     "dependencies": {
-        "vue-cookies": "^1.8.0"
+        "vue-cookies": "^1.8.0",
+        "vue-waypoint": "^4.2.1"
     }
 }

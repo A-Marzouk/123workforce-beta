@@ -27,14 +27,13 @@ body {
     align-items: flex-start;
     justify-content: space-between;
     margin-top: 30px;
-    margin-bottom: 60px;
+    margin-bottom: 30px;
 
     .search-bar {
       width: 100%;
 
       .input-wrapper {
         position: relative;
-        margin-right: 10px;
 
         img.search-icon {
           position: absolute;
@@ -57,7 +56,9 @@ body {
 
         .skills {
           display: flex;
-          align-items: center;
+          align-items: flex-start;
+          max-width: 100%;
+          overflow-x: auto;
 
           .single-skill {
             background: #E6E8FC;
@@ -69,6 +70,7 @@ body {
             font-size: 10px;
             color: #687494;
             margin-right: 6px;
+            white-space: nowrap;
           }
 
         }
@@ -107,6 +109,7 @@ body {
           .profile-picture {
             position: relative;
             margin-right: 8px;
+            margin-bottom: 10px;
 
             img.profile {
               width: 64px;
@@ -139,6 +142,7 @@ body {
               display: flex;
               align-items: center;
               margin-bottom: 8px;
+              flex-wrap: wrap;
 
               .name {
                 font-family: noto_sans_semi_bold, sans-serif;
@@ -146,6 +150,7 @@ body {
                 font-weight: 700;
                 font-size: 18px;
                 color: #001D68;
+                margin-right: 4px;
               }
 
               .job-title {
@@ -154,7 +159,6 @@ body {
                 font-weight: 500;
                 font-size: 14px;
                 color: #001D68;
-                margin-left: 4px;
                 margin-top: 2px;
               }
             }
@@ -162,6 +166,8 @@ body {
             .skills {
               display: flex;
               align-items: center;
+              max-width: 160px;
+              overflow-x: scroll;
 
               .single-skill {
                 font-family: noto_sans_regular, sans-serif;
@@ -173,6 +179,7 @@ body {
                 margin-right: 5px;
                 background: rgba(196, 201, 245, 0.14);
                 border-radius: 6px;
+                white-space: nowrap;
               }
             }
           }
@@ -184,8 +191,8 @@ body {
                 align-items: center;
                 justify-content: center;
                 background: #001BE2;
-                height: 32px;
-                padding: 0 12px;
+                height: 36px;
+                width: 70px;
                 border-radius: 24px;
 
                 font-family: noto_sans_regular, sans-serif;
