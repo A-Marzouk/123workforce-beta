@@ -146,6 +146,37 @@
                 </div>
             </div>
         </div>
+
+
+        <div class="footer">
+            <a href="/" class="footer-logo"></a>
+
+            <div class="social-follow">
+                <a href="https://www.facebook.com/123workforce" class="single-social">
+                    <img src="/assets/icons/homepage/social/facebook-icon.png" alt="facebook">
+                </a>.
+                <a href="https://www.instagram.com/123workforce" class="single-social">
+                    <img src="/assets/icons/homepage/social/instagram-icon.png" alt="instagram">
+                </a>
+            </div>
+
+            <div class="contact-icons">
+                <a href="https:/wa.me/353868447832" class="single-contact">
+                    <img src="/assets/icons/homepage/social/whatsapp-icon.png" alt="whatsapp">
+                </a>
+                <a href="skype:magictime.uk?chat" class="single-contact">
+                    <img src="/assets/icons/homepage/social/skype-icon.png" alt="skype">
+                </a>
+                <a href="mailto:accounts@123workforce.com" class="single-contact">
+                    <img src="/assets/icons/homepage/social/email-icon.png" alt="email">
+                </a>
+                <a href="https:/t.me/conormarjoram" class="single-contact">
+                    <img src="/assets/icons/homepage/social/telegram-icon.png" alt="telegram">
+                </a>
+            </div>
+
+        </div>
+
     </div>
 </template>
 
@@ -175,7 +206,7 @@
                         this.users = res.data.data;
                     })
                     .catch( (err) => {
-                        console.log('Error while fetching users...');
+                        console.log(err, 'Error while fetching users...');
                     });
             }
         },
