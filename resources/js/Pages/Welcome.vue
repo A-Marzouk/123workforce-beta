@@ -100,7 +100,7 @@
                         </div>
                     </div>
 
-                    <Waypoint @change="onChange">
+                    <Waypoint @change="onChange" :options="{threshold: [0.90, 0.90]}">
                         <div class="video-wrapper">
                                 <video v-if="user.about_video !== null" @error="videoLoadError(user)"
                                        :id="`userVideo_${user.id}`" controls>
@@ -166,16 +166,28 @@
                 users: [],
                 page: 1,
                 count: 5,
-                currentVisibleVideo: null
+                lastPage: 100,
+                currentVisibleVideo: null,
+                isPending: false
             }
         },
         methods: {
             getHomeProfiles() {
+                if(this.isPending){
+                   return;
+                }
+
+                this.isPending = true;
                 axios.get(`${process.env.MIX_CIV_URL}/api/search/workforce-profiles?page=${this.page}&count=${this.count}`)
                     .then((res) => {
-                        this.users = res.data.data;
+                        console.log(res.data.data);
+                        this.users.push(...res.data.data);
+                        this.lastPage = res.data.last_page;
+                        this.page++;
+                        this.isPending = false;
                     })
                     .catch((err) => {
+                        this.isPending = false;
                         console.log(err, 'Error while fetching users...');
                     });
             },
@@ -186,12 +198,29 @@
                 console.log(`User ${user.name} has a broken about video`);
             },
             onChange(waypointState) {
-                console.log(waypointState.going);
-                console.log(waypointState.el)
+                if(waypointState.going === 'IN'){
+                    console.log('IN');
+                    this.playVisibleVideo(waypointState.el.querySelector('.video-wrapper video'));
+                }
             },
+            playVisibleVideo(videoElement){
+                document.querySelectorAll('video').forEach(vid => vid.pause());
+                videoElement?.play();
+            }
         },
         mounted() {
             this.getHomeProfiles();
+
+            window.addEventListener('scroll', () => {
+                const {scrollTop, scrollHeight, clientHeight} = document.documentElement;
+
+                if (scrollTop + clientHeight >= scrollHeight - 5 && this.page <= this.lastPage){
+                    console.log('getting');
+                    this.getHomeProfiles();
+                }
+            }, {
+                passive: true
+            });
         }
     }
 
