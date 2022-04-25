@@ -28,6 +28,7 @@ body {
     justify-content: space-between;
     margin-top: 30px;
     margin-bottom: 30px;
+    width: 100%;
 
     .search-bar {
       width: 100%;
@@ -112,7 +113,7 @@ body {
             margin-bottom: 10px;
 
             img.profile {
-              width: 64px;
+              min-width: 64px;
               border-radius: 50%;
               overflow: hidden;
             }
