@@ -24,7 +24,7 @@
             <div class="search-bar">
                 <div class="input-wrapper">
                     <img src="/assets/icons/homepage/search-grey-icon.png" alt="search" class="search-icon">
-                    <input type="text" placeholder="Search tech skills">
+                    <input type="text" placeholder="Search tech skills" v-model="searchValue">
                 </div>
 
                 <div class="skills-suggestions">
@@ -174,7 +174,8 @@
                 count: 5,
                 lastPage: 100,
                 currentVisibleVideo: null,
-                isPending: false
+                isPending: false,
+                searchValue: ''
             }
         },
         methods: {
@@ -207,6 +208,7 @@
                 }
             },
             playVisibleVideo(videoElement){
+                console.log('should play video');
                 document.querySelectorAll('video').forEach(vid => vid.pause());
                 videoElement?.play();
             }
@@ -217,7 +219,8 @@
             window.addEventListener('scroll', () => {
                 const {scrollTop, scrollHeight, clientHeight} = document.documentElement;
 
-                if (scrollTop + clientHeight >= scrollHeight - 5 && this.page <= this.lastPage){
+                if (scrollTop + clientHeight >= scrollHeight - 100 && this.page <= this.lastPage){
+                    console.log('call here');
                     this.getHomeProfiles();
                 }
             }, {
